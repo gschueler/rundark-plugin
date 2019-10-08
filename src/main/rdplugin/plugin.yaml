@@ -1,0 +1,18 @@
+name: "@title@"
+rundeckPluginVersion: 1.2
+author: "@author@"
+date: "@date@"
+version: "@version@"
+url: "@url@"
+providers:
+    - name: "@name@"
+      service: UI
+      title: "@title@"
+      description: "@description@"
+      plugin-type: ui
+      ui:
+        - pages: '*'
+          scripts:
+            - js/main.js
+          styles:
+            - css/rundark.css

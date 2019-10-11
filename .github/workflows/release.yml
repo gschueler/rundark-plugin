@@ -20,7 +20,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Get Release Version
-        run: VERSION=$(./gradlew currentVersion | grep 'version:' | cut -d ' ' -f 3) && echo ::set-env name=VERSION::$VERSION
+        id: get_version
+        run: VERSION=$(./gradlew currentVersion | grep 'version:' | cut -d ' ' -f 3) && echo ::set-output name=VERSION::$VERSION
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.0
@@ -38,6 +39,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: build/distributions/rundark-$VERSION-plugin.zip
-          asset_name: rundark-$VERSION-plugin.zip
+          asset_path: build/distributions/rundark-${{ steps.get_version.outputs.VERSION }}-plugin.zip
+          asset_name: rundark-${{ steps.get_version.outputs.VERSION }}-plugin.zip
           asset_content_type: application/zip

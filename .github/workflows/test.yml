@@ -1,0 +1,27 @@
+
+on: [push]
+
+name: Test Version
+
+jobs:
+  build:
+    name: Test Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Build with Gradle
+        run: ./gradlew build
+      - name: Get Release Version Env
+        run: VERSION=$(./gradlew currentVersion | grep 'version:' | cut -d ' ' -f 3) && echo ::set-env name=VERSION::$VERSION
+      - name: Get Release Version Output
+        id: version-output
+        run: VERSION=$(./gradlew currentVersion | grep 'version:' | cut -d ' ' -f 3) && echo ::set-output name=VERSION::$VERSION
+      - name: Use Env
+        run: echo VERSION env var is $VERSION
+      - name: Use Output
+        run: echo VERSION output from step is ${{ steps.version-output.outputs.VERSION }}

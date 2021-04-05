@@ -1,6 +1,8 @@
 Rundark Rundeck Plugin
 ===============
 
+**NOTE: This plugin is Unsupported by Rundeck/PagerDuty. Please file [issues on github](https://github.com/gschueler/rundark-plugin/issues)**
+
 Enables Dark Mode support where available (Chrome, Safari, Firefox) on MacOS/iOS
 
 
